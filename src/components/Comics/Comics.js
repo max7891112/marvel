@@ -1,13 +1,11 @@
 import { API_URL, URL_COMICS, URL_CHARACTERS, IMG_STANDARD_XLARGE, IMG_NOT_AVAILABLE } from '../../constants/api';
 import { getDataApi } from '../../utils/getDataApi';
 import { ROOT_INDEX } from '../../constants/root';
-
+import Error from '../Error';
 import './Comics.css';
 
 class Comics {
-    async render() {
-        const data = await getDataApi.getData(API_URL + URL_COMICS);
-
+    renderComics(data) {
         let htmlContent = '';
 
         data.forEach(({ id, title, thumbnail: { path, extension } }) => {
@@ -32,6 +30,16 @@ class Comics {
         `;
     
         ROOT_INDEX.innerHTML = htmlWrapper;
+    }
+
+    async render() {
+        const data = await getDataApi.getData(API_URL + URL_COMICS);
+        if(data) {
+            this.renderComics(data)
+        } else {
+            Error.render()
+        }
+        
     }
 
     eventListener() {
