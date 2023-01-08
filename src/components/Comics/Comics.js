@@ -3,6 +3,7 @@ import { getDataApi } from '../../utils/getDataApi';
 import { ROOT_INDEX } from '../../constants/root';
 import Error from '../Error';
 import './Comics.css';
+import Characters from '../Characters';
 
 class Comics {
     renderComics(data) {
@@ -47,7 +48,7 @@ class Comics {
             const uri = element.getAttribute('data-uri');
 
             element.addEventListener('click', () => {
-                console.log(uri);
+                Characters.render(uri)
             })
         })
     }
